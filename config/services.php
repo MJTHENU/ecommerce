@@ -29,5 +29,20 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'google' => [
+        'client_id' => env('34598207111-52dmmcm1nfrmqobqn7sinrd06td82aba.apps.googleusercontent.com'),
+        'client_secret' => env('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'),
+        'redirect' => 'http://localhost/quaecommserverbk/seller/login/google/callback',
+    ],
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => 'your_redirect_url',
+    ],
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => 'your_redirect_url',
+    ],
 
 ];
