@@ -3,7 +3,7 @@
 		<thead>
 			<tr>
 				<th class="checkboxlist text-center" style="width:5%"><input class="tp-check-all checkAll" type="checkbox"></th>
-				<th class="text-left" style="width:75%">{{ __('Country') }}</th>
+				<th class="text-left" style="width:75%">{{ __('Area ') }}</th>
 				<th class="text-center" style="width:10%">{{ __('Status') }}</th>
 				<th class="text-center" style="width:10%">{{ __('Action') }}</th>
 			</tr>

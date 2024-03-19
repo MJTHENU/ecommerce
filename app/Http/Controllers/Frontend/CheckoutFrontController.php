@@ -13,6 +13,9 @@ use App\Models\User;
 use App\Models\Order_master;
 use App\Models\Order_item;
 use App\Models\Country;
+use App\Models\Locality;
+use App\Models\Pincode;
+use App\Models\District;
 use App\Models\Shipping;
 use Cart;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -70,9 +73,12 @@ class CheckoutFrontController extends Controller
 	public function LoadCheckout()
 	{
 		$country_list = Country::where('is_publish', '=', 1)->orderBy('country_name', 'ASC')->get();
+		$locality_list = Locality::where('is_publish', '=', 1)->orderBy('locality_name', 'ASC')->get();
+		$pincode_list = Pincode::where('is_publish', '=', 1)->orderBy('pincode_name', 'ASC')->get();
+		$district_list = District::where('is_publish', '=', 1)->orderBy('district_name', 'ASC')->get();
 		$shipping_list = Shipping::where('is_publish', '=', 1)->get();
 
-		return view('frontend.checkout', compact('country_list', 'shipping_list'));
+		return view('frontend.checkout', compact('country_list','locality_list','pincode_list','district_list','shipping_list'));
 	}
 
 	public function LoadThank()
@@ -117,7 +123,7 @@ class CheckoutFrontController extends Controller
 				'country' => 'required',
 				'state' => 'required',
 				'zip_code' => 'required',
-				'city' => 'required',
+				'district' => 'required',
 				'address' => 'required',
 				'payment_method' => 'required',
 				'shipping_method' => 'required',
@@ -138,7 +144,7 @@ class CheckoutFrontController extends Controller
 				'address' => $request->input('address'),
 				'state' => $request->input('state'),
 				'zip_code' => $request->input('zip_code'),
-				'city' => $request->input('city'),
+				'district' => $request->input('district'),
 				'password' => Hash::make($request->input('password')),
 				'bactive' => base64_encode($request->input('password')),
 				'status_id' => 1,
@@ -242,10 +248,11 @@ class CheckoutFrontController extends Controller
 		foreach ($CartDataList as $row) {
 
 			$datalist = Product::where('id', $row->id)->first();
-			$taxlist = Tax::where('id', $datalist['tax_id'])->first();
+			//$taxlist = Tax::where('id', $datalist['tax_id'])->first();
 
-			$gtax = getTax($taxlist['position']);
-			$tax_rate = $gtax['percentage'];
+			//$gtax = getTax($taxlist['position']);
+			//$tax_rate = $gtax['percentage'];
+			$tax_rate = $datalist['tax_id'];
 			config(['cart.tax' => $tax_rate]);
 
 			$row->setTaxRate($tax_rate);

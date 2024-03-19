@@ -31,9 +31,10 @@ class OrdersSellerController extends Controller
 			->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 			->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 			->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-			->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+			->join('products as p', 'p.id', '=', 'g.product_id')
+			->select('a.id', 'p.title','a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 			->where('a.seller_id', $seller_id)
-			->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+			->groupBy('a.customer_id', 'p.title', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone','b.name', 'c.shop_name', 'a.order_no', 'a.id')
 			->orderBy('a.created_at','desc')
 			->paginate(20);
 		
@@ -60,7 +61,7 @@ class OrdersSellerController extends Controller
 					->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 					->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 					->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 					->where(function ($query) use ($search){
 						$query->where('a.order_no', 'like', '%'.$search.'%')
 							->orWhere('a.created_at', 'like', '%'.$search.'%')
@@ -72,7 +73,7 @@ class OrdersSellerController extends Controller
 							->orWhere('b.email', 'like', '%'.$search.'%');
 					})
 					->where('a.seller_id', $seller_id)
-					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 					->orderBy('a.created_at','desc')
 					->paginate(20);
 			}else{
@@ -85,10 +86,10 @@ class OrdersSellerController extends Controller
 						->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 						->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 						->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-						->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+						->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 						->where('a.seller_id', $seller_id)
 						->whereBetween('a.created_at', [$start_date, $end_date])
-						->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+						->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee','a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 						->orderBy('a.created_at','desc')
 						->paginate(20);
 				}else{
@@ -101,9 +102,9 @@ class OrdersSellerController extends Controller
 							->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 							->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 							->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-							->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+							->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee','a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 							->where('a.seller_id', $seller_id)
-							->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+							->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 							->orderBy('a.created_at','desc')
 							->paginate(20);
 					}else{
@@ -115,10 +116,10 @@ class OrdersSellerController extends Controller
 							->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 							->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 							->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-							->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+							->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 							->where('a.order_status_id', '=', $status)
 							->where('a.seller_id', $seller_id)
-							->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+							->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 							->orderBy('a.created_at','desc')
 							->paginate(20);
 					}
@@ -150,7 +151,8 @@ class OrdersSellerController extends Controller
 				'a.order_no', 
 				'a.created_at', 
 				'a.shipping_title', 
-				'a.shipping_fee', 
+				'a.shipping_fee',
+				'a.phone', 
 				DB::raw("SUM(g.total_price) as total_amount"), 
 				DB::raw("SUM(g.tax) as tax"), 
 				DB::raw("SUM(g.discount) as discount"), 
@@ -273,6 +275,7 @@ class OrdersSellerController extends Controller
 				'a.created_at', 
 				'a.shipping_title', 
 				'a.shipping_fee', 
+				'a.phone', 
 				DB::raw("SUM(b.total_price) as total_amount"), 
 				DB::raw("SUM(b.tax) as tax"), 
 				DB::raw("SUM(b.discount) as discount"), 

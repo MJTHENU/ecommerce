@@ -171,21 +171,24 @@
         responsive: {
             0: {
                 items: 1,
-                nav: false,
+                nav: true,
+                dots: true,
             },
             400: {
                 items: 1,
-                nav: false,
+                nav: true,
+                dots: true,
             },
             600: {
                 items: 2,
-                nav: false,
+                nav: true,
+                 dots: true,
             },
             900: {
                 items: 3,
             },
             1000: {
-                items: 5,
+                items: 4,
             },
         },
     });
@@ -207,17 +210,22 @@
         responsive: {
             0: {
                 items: 1,
-                nav: false,
+                nav: true,
+                 dots: true,
             },
             400: {
                 items: 2,
                 nav: false,
+                 dots: true,
             },
             600: {
                 items: 3,
+                 dots: true,
             },
             900: {
                 items: 3,
+                   nav: false,
+                 dots: true,
             },
             1000: {
                 items: 6,
@@ -242,14 +250,18 @@
         responsive: {
             0: {
                 items: 1,
-                nav: false,
+                nav: true,
+                 dots: true,
             },
             400: {
                 items: 1,
-                nav: false,
+                nav: true,
+                 dots: true,
             },
             600: {
                 items: 2,
+                   nav: true,
+                 dots: true,
             },
             900: {
                 items: 3,
@@ -277,11 +289,13 @@
         responsive: {
             0: {
                 items: 1,
-                nav: false,
+                nav: true,
+                 dots: true,
             },
             400: {
                 items: 1,
-                nav: false,
+                nav: true,
+                 dots: true,
             },
             600: {
                 items: 2,
@@ -309,11 +323,13 @@
         responsive: {
             0: {
                 items: 1,
-                nav: false,
+                nav: true,
+                 dots: true,
             },
             400: {
                 items: 1,
-                nav: false,
+                nav: true,
+                 dots: true,
             },
             600: {
                 items: 2,

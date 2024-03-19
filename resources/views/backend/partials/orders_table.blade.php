@@ -5,9 +5,12 @@
 				<th class="checkboxlist text-center" style="width:3%"><input class="tp-check-all checkAll" type="checkbox"></th>
 				<th class="text-left" style="width:8%">{{ __('Order#') }}</th>
 				<th class="text-left" style="width:8%">{{ __('Order Date') }}</th>
+					<th class="text-left" style="width:8%">{{ __('Order Time') }}</th>
 				<th class="text-left" style="width:10%">{{ __('Customer') }} </th>
+				<th class="text-left" style="width:10%">{{ __('Phone') }} </th>
+			  	<th class="text-center" style="width:5%">{{ __('Product') }} </th>
 				<th class="text-left" style="width:10%">{{ __('Store') }}</th>
-				<th class="text-center" style="width:8%">{{ __('Subtotal') }}</th>
+			    <th class="text-center" style="width:8%">{{ __('Subtotal') }}</th>
 				<th class="text-center" style="width:5%">{{ __('Tax') }}</th>
 				<th class="text-center" style="width:8%">{{ __('Shipping Fee') }}</th>
 				<th class="text-center" style="width:8%">{{ __('Total Amount') }}</th>
@@ -25,6 +28,7 @@
 			$sub_total = $row->total_amount;
 			$tax = $row->tax;
 			$shipping_fee = $row->shipping_fee;
+			$phone = $row->phone;
 			
 			$total_amount = $row->total_amount + $row->tax + $row->shipping_fee;
 			
@@ -33,14 +37,16 @@
 				<td class="checkboxlist text-center"><input name="item_ids[]" value="{{ $row->id }}" class="tp-checkbox selected_item" type="checkbox"></td>
 				<td class="text-left"><a href="{{ route('backend.order', [$row->id]) }}">{{ $row->order_no }}</a></td>
 				<td class="text-left">{{ date('d-m-Y', strtotime($row->created_at)) }}</td>
-
+                <td class="text-left"><span > {{ \Carbon\Carbon::parse($row->created_at)->timezone('Asia/Kolkata')->format(' h:i:s A') }}</span></td>
 				@if ($row->customer_id != '')
 				<td class="text-left">{{ $row->name }}</td>
+				<td class="text-left">{{ $row->phone }}</td>
 				@else
 				<td class="text-left">{{ __('Guest User') }}</td>
 				@endif
+				<td class="text-left">{{ __('Product') }}</td>
+					<td class="text-left">{{ $row->shop_name }}</td>
 				
-				<td class="text-left">{{ $row->shop_name }}</td>
 				
 				@if($gtext['currency_position'] == 'left')
 				<td class="text-center">{{ $gtext['currency_icon'] }}{{ number_format($sub_total, 2) }}</td>

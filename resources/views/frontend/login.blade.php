@@ -52,11 +52,7 @@
 	<form class="form" method="POST" action="{{ route('frontend.customer-login') }}">
 	@csrf
 	<div class="form-group row">
-	<div class="col-md-6 offset-md-3">
-	<a href="{{route('login.google')}}" class="btn btn-danger btn-block">Login with Google</a>
-	<a href="{{route('login.facebook')}}" class="btn btn-primary btn-block">Login with Facebook</a>
-	<a href="{{route('login.github')}}" class="btn btn-dark btn-block">Login with Github</a>
-	</div>
+	
 	</div> <div class="form-group"> <input name="email" type="email"
 		class="form-control @error('email') is-invalid @enderror" placeholder="{{ __('Email Address') }}"
 		value="{{ old('email') }}" required />
@@ -76,8 +72,14 @@
 	<label for="remember">{{ __('Remember me') }}</label>
 	<span></span>
 	</div>
-	<input type="submit" class="btn theme-btn full" value="{{ __('login') }}">
+	<input type="submit" class="btn theme-btn full" value="{{ __('login') }}">&nbsp:
+	<a href="{{route('login.google')}}" class="btn theme-btn full">Login with Google </a> &nbsp: <br>
+                                        <!--<a href="{{route('login.facebook')}}" class="btn theme-btn full">Login with Facebook</a>-->
 	</form>
+	<div class="col-md-6 offset-md-3 text-center">
+                                      
+                                  
+                                    </div>
 	@if (Route::has('frontend.reset'))
 	<h3><a href="{{ route('frontend.reset') }}">{{ __('Forgot your password?') }}</a></h3>
 	@endif

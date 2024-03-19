@@ -22,6 +22,7 @@ class Pro_categoriesController extends Controller
 			->join('tp_status', 'pro_categories.is_publish', '=', 'tp_status.id')
 			->join('languages', 'pro_categories.lan', '=', 'languages.language_code')
 			->select('pro_categories.id', 'pro_categories.name', 'pro_categories.thumbnail', 'pro_categories.lan', 'pro_categories.is_subheader', 'pro_categories.is_publish', 'tp_status.status', 'languages.language_name')
+			->whereRaw('pro_categories.parent_id is NULL')
 			->orderBy('pro_categories.id','desc')
 			->paginate(10);
 
@@ -41,6 +42,7 @@ class Pro_categoriesController extends Controller
 					->join('tp_status', 'pro_categories.is_publish', '=', 'tp_status.id')
 					->join('languages', 'pro_categories.lan', '=', 'languages.language_code')
 					->select('pro_categories.id', 'pro_categories.name', 'pro_categories.thumbnail', 'pro_categories.lan', 'pro_categories.is_subheader', 'pro_categories.is_publish', 'tp_status.status', 'languages.language_name')
+					->whereRaw('pro_categories.parent_id is NULL')
 					->where(function ($query) use ($search){
 						$query->where('name', 'like', '%'.$search.'%')
 							->orWhere('thumbnail', 'like', '%'.$search.'%');
@@ -56,6 +58,7 @@ class Pro_categoriesController extends Controller
 					->join('tp_status', 'pro_categories.is_publish', '=', 'tp_status.id')
 					->join('languages', 'pro_categories.lan', '=', 'languages.language_code')
 					->select('pro_categories.id', 'pro_categories.name', 'pro_categories.thumbnail', 'pro_categories.lan', 'pro_categories.is_subheader', 'pro_categories.is_publish', 'tp_status.status', 'languages.language_name')
+					->whereRaw('pro_categories.parent_id is NULL')
 					->whereRaw("pro_categories.lan = '".$language_code."' OR '".$language_code."' = '0'")
 					->orderBy('pro_categories.id','desc')
 					->paginate(10);

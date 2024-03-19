@@ -41,7 +41,7 @@
 						</div>
 						
 						<div class="row mb-10">
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<div class="form-group mb-10">
 									<select name="language_code" id="language_code" class="chosen-select form-control">
 										<option value="0" selected="selected">{{ __('All Language') }}</option>
@@ -67,6 +67,18 @@
 							</div>
 							<div class="col-md-3">
 								<div class="form-group mb-10">
+									<select name="category_id" id="category_id" class="chosen-select form-control">
+										<option value="0" selected="selected">{{ __('All Sub Category') }}</option>
+										@foreach($categorylist as $row)
+											<option value="{{ $row->id }}">
+												{{ $row->name }}
+											</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group mb-10">
 									<select name="brand_id" id="brand_id" class="chosen-select form-control">
 										<option value="all" selected="selected">{{ __('All Brand') }}</option>
 										<option value="0">No Brand</option>
@@ -78,7 +90,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<div class="form-group mb-10">
 									<select name="store_id" id="store_id" class="chosen-select form-control">
 										<option value="0" selected="selected">{{ __('All Store') }}</option>
@@ -161,7 +173,21 @@
 											@endforeach
 										</select>
 									</div>
-								</div>	
+								</div>
+								<!--<div class="col-md-3">
+									<div class="form-group">
+										<label for="categoryid">{{ __('Sub Category') }}<span class="red">*</span></label>
+										<select name="subcat_id" id="subcat_id" class="chosen-select form-control">
+										<option value="">{{ __('Select Sub Category') }}</option>	
+										@foreach($subcategorylist as $row)
+												<option value="{{ $row->id }}">
+													{{ $row->name }}
+												</option>
+											@endforeach
+										</select>
+									</div>
+								</div>-->
+								<input type="hidden" value="0" name="subcat_id" id="subcat_id">
 								<div class="col-md-3">
 									<div class="form-group">
 										<label for="brandid">{{ __('Brand') }}<span class="red">*</span></label>

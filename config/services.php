@@ -32,7 +32,7 @@ return [
     'google' => [
         'client_id' => env('34598207111-52dmmcm1nfrmqobqn7sinrd06td82aba.apps.googleusercontent.com'),
         'client_secret' => env('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'),
-        'redirect' => 'http://localhost/quaecommserverbk/seller/login/google/callback',
+        'redirect' => 'https://kitecareer.com/ecommerce/seller/login/google/callback',
     ],
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),

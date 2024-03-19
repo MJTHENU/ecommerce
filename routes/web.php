@@ -31,6 +31,10 @@ Route::get('/page/{id}/{title}', [App\Http\Controllers\Frontend\PageController::
 Route::get('/product-category/{id}/{title}', [App\Http\Controllers\Frontend\ProductCategoryController::class, 'getProductCategoryPage'])->name('frontend.product-category');
 Route::get('/frontend/getProductCategoryGrid', [App\Http\Controllers\Frontend\ProductCategoryController::class, 'getProductCategoryGrid'])->name('frontend.getProductCategoryGrid');
 
+//Product Sub category
+Route::get('/product-subcategory/{id}/{title}', [App\Http\Controllers\Frontend\ProductSubCategoryController::class, 'getProductSubCategoryPage'])->name('frontend.product-subcategory');
+Route::get('/frontend/getProductSubCategoryGrid', [App\Http\Controllers\Frontend\ProductSubCategoryController::class, 'getProductSubCategoryGrid'])->name('frontend.getProductSubCategoryGrid');
+
 //Brand
 Route::get('/brand/{id}/{title}', [App\Http\Controllers\Frontend\BrandController::class, 'getBrandPage'])->name('frontend.brand');
 Route::get('/frontend/getBrandGrid', [App\Http\Controllers\Frontend\BrandController::class, 'getBrandGrid'])->name('frontend.getBrandGrid');
@@ -268,12 +272,19 @@ Route::prefix('backend')->group(function(){
 		
 	//Product Categories
 	Route::get('/product-categories', [App\Http\Controllers\Backend\Pro_categoriesController::class, 'getProductCategoriesPageLoad'])->name('backend.product-categories')->middleware(['auth','is_admin']);
+	Route::get('/product-subcategories', [App\Http\Controllers\Backend\Pro_subcategoriesController::class, 'getProductSubCategoriesPageLoad'])->name('backend.product-subcategories')->middleware(['auth','is_admin']);
 	Route::get('/getProductCategoriesTableData', [App\Http\Controllers\Backend\Pro_categoriesController::class, 'getProductCategoriesTableData'])->name('backend.getProductCategoriesTableData')->middleware(['auth','is_admin']);
+	Route::get('/getProductSubCategoriesTableData', [App\Http\Controllers\Backend\Pro_subcategoriesController::class, 'getProductSubCategoriesTableData'])->name('backend.getProductSubCategoriesTableData')->middleware(['auth','is_admin']);
 	Route::post('/saveProductCategoriesData', [App\Http\Controllers\Backend\Pro_categoriesController::class, 'saveProductCategoriesData'])->name('backend.saveProductCategoriesData')->middleware(['auth','is_admin']);
+	Route::post('/saveProductSubCategoriesData', [App\Http\Controllers\Backend\Pro_subcategoriesController::class, 'saveProductSubCategoriesData'])->name('backend.saveProductSubCategoriesData')->middleware(['auth','is_admin']);
 	Route::post('/getProductCategoriesById', [App\Http\Controllers\Backend\Pro_categoriesController::class, 'getProductCategoriesById'])->name('backend.getProductCategoriesById')->middleware(['auth','is_admin']);
+	Route::post('/getProductSubCategoriesById', [App\Http\Controllers\Backend\Pro_subcategoriesController::class, 'getProductSubCategoriesById'])->name('backend.getProductSubCategoriesById')->middleware(['auth','is_admin']);
 	Route::post('/deleteProductCategories', [App\Http\Controllers\Backend\Pro_categoriesController::class, 'deleteProductCategories'])->name('backend.deleteProductCategories')->middleware(['auth','is_admin']);
+	Route::post('/deleteProductSubCategories', [App\Http\Controllers\Backend\Pro_subcategoriesController::class, 'deleteProductSubCategories'])->name('backend.deleteProductSubCategories')->middleware(['auth','is_admin']);
 	Route::post('/bulkActionProductCategories', [App\Http\Controllers\Backend\Pro_categoriesController::class, 'bulkActionProductCategories'])->name('backend.bulkActionProductCategories')->middleware(['auth','is_admin']);
+	Route::post('/bulkActionProductSubCategories', [App\Http\Controllers\Backend\Pro_subcategoriesController::class, 'bulkActionProductSubCategories'])->name('backend.bulkActionProductSubCategories')->middleware(['auth','is_admin']);
 	Route::post('/hasProductCategorySlug', [App\Http\Controllers\Backend\Pro_categoriesController::class, 'hasProductCategorySlug'])->name('backend.hasProductCategorySlug')->middleware(['auth','is_admin']);
+	Route::post('/hasProductSubCategorySlug', [App\Http\Controllers\Backend\Pro_subcategoriesController::class, 'hasProductSubCategorySlug'])->name('backend.hasProductSubCategorySlug')->middleware(['auth','is_admin']);
 	
 	//Brands
 	Route::get('/brands', [App\Http\Controllers\Backend\BrandsController::class, 'getBrandsPageLoad'])->name('backend.brands')->middleware(['auth','is_admin']);
@@ -360,6 +371,31 @@ Route::prefix('backend')->group(function(){
 	Route::post('/getCountryById', [App\Http\Controllers\Backend\CountriesController::class, 'getCountryById'])->name('backend.getCountryById')->middleware(['auth','is_admin']);
 	Route::post('/deleteCountry', [App\Http\Controllers\Backend\CountriesController::class, 'deleteCountry'])->name('backend.deleteCountry')->middleware(['auth','is_admin']);
 	Route::post('/bulkActionCountry', [App\Http\Controllers\Backend\CountriesController::class, 'bulkActionCountry'])->name('backend.bulkActionCountry')->middleware(['auth','is_admin']);
+
+	//Locality
+	Route::get('/locality', [App\Http\Controllers\Backend\LocalityController::class, 'getLocalityPageLoad'])->name('backend.locality')->middleware(['auth','is_admin']);
+	Route::get('/getLocalityTableData', [App\Http\Controllers\Backend\LocalityController::class, 'getLocalityTableData'])->name('backend.getLocalityTableData')->middleware(['auth','is_admin']);
+	Route::post('/saveLocalityData', [App\Http\Controllers\Backend\LocalityController::class, 'saveLocalityData'])->name('backend.saveLocalityData')->middleware(['auth','is_admin']);
+	Route::post('/getLocalityById', [App\Http\Controllers\Backend\LocalityController::class, 'getLocalityById'])->name('backend.getLocalityById')->middleware(['auth','is_admin']);
+	Route::post('/deleteLocality', [App\Http\Controllers\Backend\LocalityController::class, 'deleteLocality'])->name('backend.deleteLocality')->middleware(['auth','is_admin']);
+	Route::post('/bulkActionLocality', [App\Http\Controllers\Backend\LocalityController::class, 'bulkActionLocality'])->name('backend.bulkActionLocality')->middleware(['auth','is_admin']);
+
+	//Pin Code
+	Route::get('/pincode', [App\Http\Controllers\Backend\PincodeController::class, 'getPincodePageLoad'])->name('backend.pincode')->middleware(['auth','is_admin']);
+	Route::get('/getPincodeTableData', [App\Http\Controllers\Backend\PincodeController::class, 'getPincodeTableData'])->name('backend.getPincodeTableData')->middleware(['auth','is_admin']);
+	Route::post('/savePincodeData', [App\Http\Controllers\Backend\PincodeController::class, 'savePincodeData'])->name('backend.savePincodeData')->middleware(['auth','is_admin']);
+	Route::post('/getPincodeById', [App\Http\Controllers\Backend\PincodeController::class, 'getPincodeById'])->name('backend.getPincodeById')->middleware(['auth','is_admin']);
+	Route::post('/deletePincode', [App\Http\Controllers\Backend\PincodeController::class, 'deletePincode'])->name('backend.deletePincode')->middleware(['auth','is_admin']);
+	Route::post('/bulkActionPincode', [App\Http\Controllers\Backend\PincodeController::class, 'bulkActionPincode'])->name('backend.bulkActionPincode')->middleware(['auth','is_admin']);
+
+	//District
+	Route::get('/district', [App\Http\Controllers\Backend\DistrictController::class, 'getDistrictPageLoad'])->name('backend.district')->middleware(['auth','is_admin']);
+	Route::get('/getDistrictTableData', [App\Http\Controllers\Backend\DistrictController::class, 'getDistrictTableData'])->name('backend.getDistrictTableData')->middleware(['auth','is_admin']);
+	Route::post('/saveDistrictData', [App\Http\Controllers\Backend\DistrictController::class, 'saveDistrictData'])->name('backend.saveDistrictData')->middleware(['auth','is_admin']);
+	Route::post('/getDistrictById', [App\Http\Controllers\Backend\DistrictController::class, 'getDistrictById'])->name('backend.getDistrictById')->middleware(['auth','is_admin']);
+	Route::post('/deleteDistrict', [App\Http\Controllers\Backend\DistrictController::class, 'deleteDistrict'])->name('backend.deleteDistrict')->middleware(['auth','is_admin']);
+	Route::post('/bulkActionDistrict', [App\Http\Controllers\Backend\DistrictController::class, 'bulkActionDistrict'])->name('backend.bulkActionDistrict')->middleware(['auth','is_admin']);
+
 	
 	//Page Variation
 	Route::get('/page-variation', [App\Http\Controllers\Backend\ThemeOptionsController::class, 'getPageVariation'])->name('backend.page-variation')->middleware(['auth','is_admin']);

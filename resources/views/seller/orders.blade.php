@@ -76,14 +76,14 @@ var TEXT = [];
 $(function () {
 	"use strict";
 	$("#start_date").datetimepicker({
-		format: 'yyyy-mm-dd',
+		format: 'yyyy-mm-dd h:i:s A',
 		autoclose: true,
 		todayBtn: true,
 		minView: 2
 	});
 
 	$("#end_date").datetimepicker({
-		format: 'yyyy-mm-dd hh:mm:ss',
+		format: 'yyyy-mm-dd hh:mm:ss h:i:s A',
 		autoclose: true,
 		todayBtn: true,
 		minView: 2

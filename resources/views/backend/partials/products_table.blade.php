@@ -5,6 +5,7 @@
 				<th class="checkboxlist text-center" style="width:5%"><input class="tp-check-all checkAll" type="checkbox"></th>
 				<th class="text-left" style="width:21%">{{ __('Product Name') }}</th>
 				<th class="text-left" style="width:15%">{{ __('Category') }}</th>
+				<th class="text-left" style="width:15%">{{ __('Sub Category') }}</th>
 				<th class="text-left" style="width:15%">{{ __('Brand') }}</th>
 				<th class="text-center" style="width:10%">{{ __('Store') }}</th>
 				<th class="text-center" style="width:10%">{{ __('Language') }}</th>
@@ -18,8 +19,8 @@
 			@foreach($datalist as $row)
 			<tr>
 				<td class="checkboxlist text-center"><input name="item_ids[]" value="{{ $row->id }}" class="tp-checkbox selected_item" type="checkbox"></td> 
-				
 				<td class="text-left"><a href="{{ route('backend.product', [$row->id]) }}" title="{{ __('Edit') }}">{{ $row->title }}</a></td>
+				<td class="text-left">{{ $row->category_name }}</td>
 				<td class="text-left">{{ $row->category_name }}</td>
 				@if($row->brand_id == '0')
 				<td class="text-left">No Brand</td>

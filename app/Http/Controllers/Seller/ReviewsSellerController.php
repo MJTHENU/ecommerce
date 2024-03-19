@@ -18,7 +18,7 @@ class ReviewsSellerController extends Controller
 		$datalist = DB::table('reviews')
 			->join('users', 'reviews.user_id', '=', 'users.id')
 			->join('products', 'reviews.item_id', '=', 'products.id')
-			->select('reviews.*', 'users.name', 'products.title', 'products.slug', 'products.id as product_id')
+			->select('reviews.*', 'users.name', 'products.title', 'products.slug', 'products.id as product_id', 'users.phone as phone')
 			->where('products.user_id', $user_id)
 			->orderBy('reviews.id','desc')
 			->paginate(20);

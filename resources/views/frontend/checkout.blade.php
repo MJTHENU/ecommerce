@@ -75,8 +75,8 @@ $gtext = gtext();
 				<div class="row">
 				<div class="col-md-6">
 				<div class="mb-3">
-					<select id="country" name="country" class="form-control parsley-validated" data-required="true">
-					<option value="">{{ __('Country') }}</option>
+					<select id="area" name="country" placeholder="{{ __('Area') }}"class="form-control parsley-validated" data-required="true">
+					<option value="area">{{ __('Select your Area') }}</option>
 					@foreach($country_list as $row)
 					<option value="{{ $row->country_name }}">
 					{{ $row->country_name }}
@@ -88,32 +88,53 @@ $gtext = gtext();
 					</div>
 					<div class="col-md-6">
 						<div class="mb-3">
-						<input id="state" name="state" type="text" placeholder="{{ __('State') }}" class="form-control
-						parsley-validated" data-required="true">
-						<span class="text-danger error-text state_error"></span>
+						<select id="state" name="state" placeholder="{{ __('Locality') }}"class="form-control parsley-validated" data-required="true">
+					<option value="locality">{{ __('Select your Locality') }}</option>
+					@foreach($locality_list as $row)
+					<option value="{{ $row->locality_name }}">
+					{{ $row->locality_name }}
+					</option>
+					@endforeach
+					</select>
+					<span class="text-danger error-text state_error"></span>
 						</div>
 						</div>
 					</div>
 					<div class="row">
 					<div class="col-md-6">
 					<div class="mb-3">
-						<input id="zip_code" name="zip_code" type="text" placeholder="{{ __('Zip Code') }}"
-						class="form-control parsley-validated" data-required="true">
+					<select id="zip_code" name="zip_code" placeholder="{{ __('Pin Code') }}"class="form-control parsley-validated" data-required="true">
+					<option value="pincode">{{ __('Select your Pin Code') }}</option>
+					@foreach($pincode_list as $row)
+					<option value="{{ $row->pincode_name }}">
+					{{ $row->pincode_name }}
+					</option>
+					@endforeach
+					</select>
+					<!-- <input id="zip_code" name="zip_code" type="text" placeholder="{{ __('Pin Code') }}"
+						class="form-control parsley-validated" data-required="true"> -->
 						<span class="text-danger error-text zip_code_error"></span>
 					</div>
 					</div>
 					<div class="col-md-6">
 					<div class="mb-3">
-						<input id="city" name="city" type="text" placeholder="{{ __('City') }}" class="form-control
-						parsley-validated" data-required="true">
-						<span class="text-danger error-text city_error"></span>
+					<select id="district" name="district" placeholder="{{ __('District') }}"class="form-control parsley-validated" data-required="true">
+					<option value="district">{{ __('Select your District') }}</option>
+					@foreach($district_list as $row)
+					<option value="{{ $row->district_name }}">
+					{{ $row->district_name }}
+					</option>
+					@endforeach
+					</select>
+						<input type="hidden" id="city" name="city" value='-'>
+						<span class="text-danger error-text district_error"></span>
 					</div>
 					</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 						<div class="mb-3">
-						<textarea id="address" name="address" placeholder="{{ __('Address') }}" rows="2"
+						<textarea id="address" name="address" placeholder="{{ __('Address example your door no  / near place ') }}" rows="2"
 							class="form-control parsley-validated"
 							data-required="true">@if(isset(Auth::user()->address)) {{ Auth::user()->address }} @endif</textarea>
 						<span class="text-danger error-text address_error"></span>
@@ -238,13 +259,13 @@ $gtext = gtext();
 		@endif
 		</div>
 		</div>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-12">
 			<div class="mb-3 mt10">
 			<textarea name="comments" class="form-control" placeholder="Note" rows="2"></textarea>
 			</div>
 			</div>
-		</div>
+		</div> -->
 		</div>
 
 		<div class="col-lg-5">
@@ -261,9 +282,10 @@ $gtext = gtext();
 				@foreach($CartDataList as $row)
 				@php
 				$productDetails = getProductDetails($row->id);
-				$taxDetails = getTaxDetails($productDetails['tax_id']);
-				$gtax = getTax($taxDetails['position']);
-				$tax_rate = $gtax['percentage'];
+				//$taxDetails = getTaxDetails($productDetails['tax_id']);
+				//$gtax = getTax($taxDetails['position']);
+				//$tax_rate = $gtax['percentage'];
+				$tax_rate = $productDetails['tax_id'];
 				config(['cart.tax' => $tax_rate]);
 				$row->setTaxRate($tax_rate);
 				Cart::instance('shopping')->update($row->rowId, $row->qty);

@@ -1,9 +1,6 @@
-<div class="sidebar-wrapper">
-	<div class="logo">
-		<a href="{{ route('backend.dashboard') }}">
-			<img src="{{ $gtext['back_logo'] ? asset('public/media/'.$gtext['back_logo']) : asset('public/backend/images/backend-logo.png') }}" alt="logo">
-		</a>
-	</div>
+<div class="sidebar-wrapper"> <div class="logo"> <a href="{{ route('backend.dashboard') }}">
+	<img src="{{ $gtext['back_logo'] ? asset('public/media/'.$gtext['back_logo']) :
+		asset('public/backend/images/backend-logo.png') }}" alt="logo"> </a> </div>
 	<!---<div class="version">Theme V 1.0.0</div>-->
 	<ul class="left-navbar">
 		@if (Auth::user()->role_id == 1)
@@ -17,6 +14,7 @@
 				<li><a href="{{ route('backend.products') }}">{{ __('Products') }}</a></li>
 				<li><a href="{{ route('backend.manage-stock') }}">{{ __('Manage Stock') }}</a></li>
 				<li><a href="{{ route('backend.product-categories') }}">{{ __('Product Categories') }}</a></li>
+				<li><a href="{{ route('backend.product-subcategories') }}">{{ __('Product Sub Categories') }}</a></li>
 				<li><a href="{{ route('backend.brands') }}">{{ __('Brands') }}</a></li>
 				<li><a href="{{ route('backend.shipping') }}">{{ __('Shipping') }}</a></li>
 				<li class="dnone"><a href="{{ route('backend.collections') }}">{{ __('Collections') }}</a></li>
@@ -29,7 +27,10 @@
 				<li><a href="{{ route('backend.slider') }}">{{ __('Home Slider') }}</a></li>
 				<li><a href="{{ route('backend.offer-ads') }}">{{ __('Offer & Ads') }}</a></li>
 				<li><a href="{{ route('backend.home-video') }}">{{ __('Home Video Section') }}</a></li>
-				<li><a href="{{ route('backend.countries') }}">{{ __('Countries') }}</a></li>
+				<li><a href="{{ route('backend.countries') }}">{{ __('Area') }}</a></li>
+				<li><a href="{{ route('backend.locality') }}">{{ __('Locality') }}</a></li>
+				<li><a href="{{ route('backend.pincode') }}">{{ __('Pin Code') }}</a></li>
+				<li><a href="{{ route('backend.district') }}">{{ __('District') }}</a></li>
 			</ul>
 		</li>
 		<li class="dropdown"><a class="nav-link has-dropdown" href="#" data-toggle="dropdown"><i class="fa fa-wrench"></i>{{ __('Appearance') }}</a>

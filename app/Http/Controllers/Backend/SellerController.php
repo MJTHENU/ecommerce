@@ -160,7 +160,7 @@ class SellerController extends Controller
     }
 	
 	//has shop url Slug
-    public function hasShopSlug(Request $request){
+  public function hasShopSlug(Request $request){
 		$res = array();
 		
 		$slug = str_slug($request->shop_url);

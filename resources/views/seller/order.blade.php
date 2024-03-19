@@ -16,7 +16,7 @@
 					<div class="card-body">
 					<ul class="status_list">
 						<li class="order_no_date"><strong>{{ __('Order#') }}</strong>: {{ $mdata->order_no }}</li>
-						<li class="order_no_date"><strong>{{ __('Order Date') }}</strong>: {{ date('d-m-Y', strtotime($mdata->created_at)) }}</li>
+						<li class="order_no_date"><strong>{{ __('Order Date') }}</strong>: {{ date('d-m-Y h:i:s A', strtotime($mdata->created_at)) }}</li>
 						<li class="order_no_date"><strong>{{ __('Payment Method') }}</strong>: {{ $mdata->method_name }}</li>
 						<li id="payment_status_class" class="pstatus_{{ $mdata->payment_status_id }}"><strong>{{ __('Payment Status') }}</strong>: <span id="pstatus_name">{{ $mdata->pstatus_name }}</span></li>
 						<li id="order_status_class" class="ostatus_{{ $mdata->order_status_id }}"><strong>{{ __('Order Status') }}</strong>: <span id="ostatus_name">{{ $mdata->ostatus_name }}</span></li>
@@ -179,7 +179,7 @@
 						@endif
 						
 						@if ($mdata->country != '')
-						<p><strong>{{ __('Country') }}</strong>: {{ $mdata->country }}</p>
+						<p><strong>{{ __('Area') }}</strong>: {{ $mdata->country }}</p>
 						@endif
 						
 						@if ($mdata->state != '')
@@ -191,7 +191,7 @@
 						@endif
 						
 						@if ($mdata->city != '')
-						<p><strong>{{ __('City') }}</strong>: {{ $mdata->city }}</p>
+						<p><strong>{{ __('District') }}</strong>: {{ $mdata->city }}</p>
 						@endif
 						
 						@if ($mdata->customer_address != '')

@@ -3,6 +3,7 @@
 use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -1046,7 +1047,33 @@ function CategoryListForFilter()
 	$sql = "SELECT b.id, b.slug, b.name, b.thumbnail, COUNT(a.id) TotalProduct
 	FROM products a
 	RIGHT JOIN pro_categories b ON a.cat_id = b.id
-	WHERE b.is_publish = 1 AND b.lan = '" . $lan . "'
+	WHERE b.parent_id is NOT NULL AND b.is_publish = 1 AND b.lan = '" . $lan . "'
+	GROUP BY b.thumbnail, b.id, b.slug, b.name
+	ORDER BY b.name;";
+	$datalist = DB::select(DB::raw($sql));
+
+	return $datalist;
+}
+
+//Sub Category List for Filter
+function SubCategoryListForFilter()
+{
+	$joinQry = '';
+	if (strpos(request()->fullUrl(), 'product-category') !== false) {
+		$currentUrl = str_replace(request()->root().'/product-category/', '',request()->fullUrl());
+		$cat_id = (int)filter_var($currentUrl, FILTER_SANITIZE_NUMBER_INT);
+		$joinQry = "AND b.parent_id = '".$cat_id."'";
+	} else if (strpos(request()->fullUrl(), 'product-subcategory') !== false) {
+		$currentUrl = str_replace(request()->root().'/product-subcategory/', '',request()->fullUrl());
+		$cat_id = (int)filter_var($currentUrl, FILTER_SANITIZE_NUMBER_INT);
+		$joinQry = "AND b.parent_id = '".$cat_id."'";
+	}
+	$lan = glan();
+
+	$sql = "SELECT b.id, b.slug, b.name, b.thumbnail, COUNT(a.id) TotalProduct
+	FROM products a
+	RIGHT JOIN pro_categories b ON a.cat_id = b.id
+	WHERE b.is_publish = 1 ".$joinQry." AND b.lan = '" . $lan . "'
 	GROUP BY b.thumbnail, b.id, b.slug, b.name
 	ORDER BY b.name;";
 	$datalist = DB::select(DB::raw($sql));

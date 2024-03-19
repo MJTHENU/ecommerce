@@ -45,9 +45,9 @@ class OrdersExportController extends Controller
 				->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 				->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 				->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-				->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+				->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 				->whereBetween('a.created_at', [$start_date, $end_date])
-				->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+				->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 				->orderBy('a.created_at','desc')
 				->get();
 		}else{
@@ -60,8 +60,8 @@ class OrdersExportController extends Controller
 					->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 					->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 					->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
-					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 					->orderBy('a.created_at','desc')
 					->get();
 					
@@ -74,9 +74,9 @@ class OrdersExportController extends Controller
 					->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 					->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 					->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 					->where('a.order_status_id', '=', $status)
-					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 					->orderBy('a.created_at','desc')
 					->get();
 			}
@@ -135,16 +135,18 @@ class OrdersExportController extends Controller
 		$spreadsheet -> getActiveSheet()				
 					->SetCellValue('A4', '#')							
 					->SetCellValue('B4', __('Order#'))
-					->SetCellValue('C4', __('Order Date'))							
-					->SetCellValue('D4', __('Customer'))							
-					->SetCellValue('E4', __('Store'))							
-					->SetCellValue('F4', __('Subtotal').'('.$gtext['currency_icon'].')')							
-					->SetCellValue('G4', __('Tax').'('.$gtext['currency_icon'].')')							
-					->SetCellValue('H4', __('Shipping Fee').'('.$gtext['currency_icon'].')')							
-					->SetCellValue('I4', __('Total Amount').'('.$gtext['currency_icon'].')')
-					->SetCellValue('J4', __('Payment Method'))
-					->SetCellValue('K4', __('Payment Status'))
-					->SetCellValue('L4', __('Order Status'));
+					->SetCellValue('C4', __('Order Date'))	
+					->SetCellValue('E4', __('Products'))						
+					->SetCellValue('D4', __('Customer'))	
+					->SetCellValue('E4', __('Phone Number'))							
+					->SetCellValue('F4', __('Store'))							
+					->SetCellValue('G4', __('Subtotal').'('.$gtext['currency_icon'].')')							
+					->SetCellValue('H4', __('Tax').'('.$gtext['currency_icon'].')')							
+					->SetCellValue('I4', __('Shipping Fee').'('.$gtext['currency_icon'].')')							
+					->SetCellValue('J4', __('Total Amount').'('.$gtext['currency_icon'].')')
+					->SetCellValue('K4', __('Payment Method'))
+					->SetCellValue('L4', __('Payment Status'))
+					->SetCellValue('M4', __('Order Status'));
 						
 		//Font Size for Cells
 		$spreadsheet -> getActiveSheet()->getStyle('A4') -> applyFromArray(array('font' => array('size' => '12', 'bold' => true)), 'A4');	
@@ -159,6 +161,7 @@ class OrdersExportController extends Controller
 		$spreadsheet -> getActiveSheet()->getStyle('J4') -> applyFromArray(array('font' => array('size' => '12', 'bold' => true)), 'J4');
 		$spreadsheet -> getActiveSheet()->getStyle('K4') -> applyFromArray(array('font' => array('size' => '12', 'bold' => true)), 'K4');
 		$spreadsheet -> getActiveSheet()->getStyle('L4') -> applyFromArray(array('font' => array('size' => '12', 'bold' => true)), 'L4');
+		$spreadsheet -> getActiveSheet()->getStyle('M4') -> applyFromArray(array('font' => array('size' => '12', 'bold' => true)), 'M4');
 
 		//Text Alignment Horizontal(HORIZONTAL_LEFT,HORIZONTAL_CENTER,HORIZONTAL_RIGHT)
 		$spreadsheet -> getActiveSheet()->getStyle('A4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
@@ -166,13 +169,14 @@ class OrdersExportController extends Controller
 		$spreadsheet -> getActiveSheet()->getStyle('C4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
 		$spreadsheet -> getActiveSheet()->getStyle('D4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
 		$spreadsheet -> getActiveSheet()->getStyle('E4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
-		$spreadsheet -> getActiveSheet()->getStyle('F4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+		$spreadsheet -> getActiveSheet()->getStyle('F4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
 		$spreadsheet -> getActiveSheet()->getStyle('G4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 		$spreadsheet -> getActiveSheet()->getStyle('H4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 		$spreadsheet -> getActiveSheet()->getStyle('I4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-		$spreadsheet -> getActiveSheet()->getStyle('J4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
+		$spreadsheet -> getActiveSheet()->getStyle('J4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 		$spreadsheet -> getActiveSheet()->getStyle('K4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
 		$spreadsheet -> getActiveSheet()->getStyle('L4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
+		$spreadsheet -> getActiveSheet()->getStyle('M4') -> getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
 
 		//Text Alignment Vertical(VERTICAL_TOP,VERTICAL_CENTER,VERTICAL_BOTTOM)
 		$spreadsheet -> getActiveSheet() -> getStyle('A4')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
@@ -187,20 +191,22 @@ class OrdersExportController extends Controller
 		$spreadsheet -> getActiveSheet() -> getStyle('J4')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 		$spreadsheet -> getActiveSheet() -> getStyle('K4')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 		$spreadsheet -> getActiveSheet() -> getStyle('L4')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+		$spreadsheet -> getActiveSheet() -> getStyle('M4')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
 		//Width for Cells
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('A') -> setWidth(5);
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('B') -> setWidth(20);
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('C') -> setWidth(20);
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('D') -> setWidth(20);
-		$spreadsheet -> getActiveSheet() -> getColumnDimension('E') -> setWidth(20);
-		$spreadsheet -> getActiveSheet() -> getColumnDimension('F') -> setWidth(15);
-		$spreadsheet -> getActiveSheet() -> getColumnDimension('G') -> setWidth(20);
+		$spreadsheet -> getActiveSheet() -> getColumnDimension('E') -> setWidth(20);		
+		$spreadsheet -> getActiveSheet() -> getColumnDimension('F') -> setWidth(20);
+		$spreadsheet -> getActiveSheet() -> getColumnDimension('G') -> setWidth(15);
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('H') -> setWidth(20);
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('I') -> setWidth(20);
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('J') -> setWidth(20);
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('K') -> setWidth(20);
 		$spreadsheet -> getActiveSheet() -> getColumnDimension('L') -> setWidth(20);
+		$spreadsheet -> getActiveSheet() -> getColumnDimension('M') -> setWidth(20);
 
 		//Wrap text
 		$spreadsheet->getActiveSheet()->getStyle('A4')->getAlignment()->setWrapText(true);
@@ -218,6 +224,7 @@ class OrdersExportController extends Controller
 		$spreadsheet -> getActiveSheet() -> getStyle('J4:J4') -> applyFromArray($styleThinBlackBorderOutline);
 		$spreadsheet -> getActiveSheet() -> getStyle('K4:K4') -> applyFromArray($styleThinBlackBorderOutline);
 		$spreadsheet -> getActiveSheet() -> getStyle('L4:L4') -> applyFromArray($styleThinBlackBorderOutline);
+		$spreadsheet -> getActiveSheet() -> getStyle('M4:M4') -> applyFromArray($styleThinBlackBorderOutline);
 		
 		$i=1; 
 		$j=5;
@@ -234,6 +241,7 @@ class OrdersExportController extends Controller
 			$sub_total = $row->total_amount;
 			$tax = $row->tax;
 			$shipping_fee = $row->shipping_fee;
+			$phone = $row->phone;
 			$total_amount = $row->total_amount+$row->shipping_fee+$row->tax;
 			
 			//Value Set for Cells
@@ -242,14 +250,15 @@ class OrdersExportController extends Controller
 						->SetCellValue('B'.$j, $row->order_no)	
 						->SetCellValue('C'.$j, $order_date)																
 						->SetCellValue('D'.$j, $customer)
-						->SetCellValue('E'.$j, $row->shop_name)
-						->SetCellValue('F'.$j, $sub_total)																
-						->SetCellValue('G'.$j, $tax)																
-						->SetCellValue('H'.$j, $shipping_fee)																
-						->SetCellValue('I'.$j, $total_amount)
-						->SetCellValue('J'.$j, $row->method_name)
-						->SetCellValue('K'.$j, $row->pstatus_name)
-						->SetCellValue('L'.$j, $row->ostatus_name);
+						->SetCellValue('E'.$j, $phone)
+						->SetCellValue('F'.$j, $row->shop_name)
+						->SetCellValue('G'.$j, $sub_total)																
+						->SetCellValue('H'.$j, $tax)																
+						->SetCellValue('I'.$j, $shipping_fee)																
+						->SetCellValue('J'.$j, $total_amount)
+						->SetCellValue('K'.$j, $row->method_name)
+						->SetCellValue('L'.$j, $row->pstatus_name)
+						->SetCellValue('M'.$j, $row->ostatus_name);
 					
 			//border color set for cells
 			$spreadsheet -> getActiveSheet() -> getStyle('A' . $j . ':A' . $j) -> applyFromArray($styleThinBlackBorderOutline);
@@ -339,9 +348,9 @@ class OrdersExportController extends Controller
 				->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 				->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 				->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-				->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+				->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 				->whereBetween('a.created_at', [$start_date, $end_date])
-				->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+				->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 				->orderBy('a.created_at','desc')
 				->get();
 		}else{
@@ -354,8 +363,8 @@ class OrdersExportController extends Controller
 					->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 					->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 					->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
-					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 					->orderBy('a.created_at','desc')
 					->get();
 					
@@ -368,9 +377,9 @@ class OrdersExportController extends Controller
 					->join('payment_status as e', 'a.payment_status_id', '=', 'e.id')
 					->join('order_status as f', 'a.order_status_id', '=', 'f.id')
 					->join('order_items as g', 'a.id', '=', 'g.order_master_id')
-					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
+					->select('a.id', 'a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.order_no', 'a.created_at', 'a.shipping_fee', 'a.phone', DB::raw("SUM(g.total_price) as total_amount"), DB::raw("SUM(g.tax) as tax"), 'b.name', 'c.shop_name', 'd.method_name', 'e.pstatus_name', 'f.ostatus_name')
 					->where('a.order_status_id', '=', $status)
-					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
+					->groupBy('a.customer_id', 'a.payment_status_id', 'a.order_status_id', 'a.created_at', 'f.ostatus_name', 'e.pstatus_name', 'd.method_name', 'a.shipping_fee', 'a.phone', 'b.name', 'c.shop_name', 'a.order_no', 'a.id')
 					->orderBy('a.created_at','desc')
 					->get();
 			}
@@ -398,15 +407,16 @@ class OrdersExportController extends Controller
 					->SetCellValue('A4', '#')							
 					->SetCellValue('B4', __('Order#'))
 					->SetCellValue('C4', __('Order Date'))							
-					->SetCellValue('D4', __('Customer'))							
-					->SetCellValue('E4', __('Store'))							
-					->SetCellValue('F4', __('Subtotal').'('.$gtext['currency_icon'].')')							
-					->SetCellValue('G4', __('Tax').'('.$gtext['currency_icon'].')')							
-					->SetCellValue('H4', __('Shipping Fee').'('.$gtext['currency_icon'].')')							
-					->SetCellValue('I4', __('Total Amount').'('.$gtext['currency_icon'].')')
-					->SetCellValue('J4', __('Payment Method'))
-					->SetCellValue('K4', __('Payment Status'))
-					->SetCellValue('L4', __('Order Status'));
+					->SetCellValue('D4', __('Customer'))
+					->SetCellValue('E4', __('Phone'))							
+					->SetCellValue('F4', __('Store'))							
+					->SetCellValue('G4', __('Subtotal').'('.$gtext['currency_icon'].')')							
+					->SetCellValue('H4', __('Tax').'('.$gtext['currency_icon'].')')							
+					->SetCellValue('I4', __('Shipping Fee').'('.$gtext['currency_icon'].')')							
+					->SetCellValue('J4', __('Total Amount').'('.$gtext['currency_icon'].')')
+					->SetCellValue('K4', __('Payment Method'))
+					->SetCellValue('L4', __('Payment Status'))
+					->SetCellValue('M4', __('Order Status'));
 		
 		$i=1; 
 		$j=5;
@@ -423,6 +433,7 @@ class OrdersExportController extends Controller
 			$sub_total = $row->total_amount;
 			$tax = $row->tax;
 			$shipping_fee = $row->shipping_fee;
+			$phone = $row->$phone;
 			$total_amount = $row->total_amount+$row->shipping_fee+$row->tax;
 			
 			//Value Set for Cells
@@ -431,14 +442,15 @@ class OrdersExportController extends Controller
 						->SetCellValue('B'.$j, $row->order_no)	
 						->SetCellValue('C'.$j, $order_date)																
 						->SetCellValue('D'.$j, $customer)
-						->SetCellValue('E'.$j, $row->shop_name)
-						->SetCellValue('F'.$j, $sub_total)																
-						->SetCellValue('G'.$j, $tax)																
-						->SetCellValue('H'.$j, $shipping_fee)																
-						->SetCellValue('I'.$j, $total_amount)
-						->SetCellValue('J'.$j, $row->method_name)
-						->SetCellValue('K'.$j, $row->pstatus_name)
-						->SetCellValue('L'.$j, $row->ostatus_name);
+						->SetCellValue('E'.$j, $phone)
+						->SetCellValue('F'.$j, $row->shop_name)
+						->SetCellValue('G'.$j, $sub_total)																
+						->SetCellValue('H'.$j, $tax)																
+						->SetCellValue('I'.$j, $shipping_fee)																
+						->SetCellValue('J'.$j, $total_amount)
+						->SetCellValue('K'.$j, $row->method_name)
+						->SetCellValue('L'.$j, $row->pstatus_name)
+						->SetCellValue('M'.$j, $row->ostatus_name);
 			
 			//DateTime format Cell C
 			$spreadsheet->getActiveSheet()->getStyle('C'.$j)->getNumberFormat()->setFormatCode('dd-mm-yyyy'); //Date Format

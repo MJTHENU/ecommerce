@@ -62,10 +62,11 @@ class CartController extends Controller
 		$items = '';
 		foreach ($data as $key => $row) {
 			$datalist = Product::where('id', $row->id)->first();
-			$taxlist = Tax::where('id', $datalist['tax_id'])->first();
+			//$taxlist = Tax::where('id', $datalist['tax_id'])->first();
 
-			$gtax = getTax($taxlist['position']);
-			$tax_rate = $gtax['percentage'];
+			//$gtax = getTax($taxlist['position']);
+			//$tax_rate = $gtax['percentage'];
+			$tax_rate = $datalist['tax_id'];
 			config(['cart.tax' => $tax_rate]);
 
 			$row->setTaxRate($tax_rate);
@@ -153,10 +154,11 @@ class CartController extends Controller
 
 		foreach ($data as $key => $row) {
 			$datalist = Product::where('id', $row->id)->first();
-			$taxlist = Tax::where('id', $datalist['tax_id'])->first();
+			//$taxlist = Tax::where('id', $datalist['tax_id'])->first();
 
-			$gtax = getTax($taxlist['position']);
-			$tax_rate = $gtax['percentage'];
+			//$gtax = getTax($taxlist['position']);
+			//$tax_rate = $gtax['percentage'];
+			$tax_rate = $datalist['tax_id'];
 			//echo "----" . $tax_rate;
 			config(['cart.tax' => $tax_rate]);
 

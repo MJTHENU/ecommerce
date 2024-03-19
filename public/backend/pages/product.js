@@ -35,8 +35,8 @@ $(function () {
 	$("#cat_id").chosen();
 	$("#cat_id").trigger("chosen:updated");
 
-	$("#tax_id").chosen();
-	$("#tax_id").trigger("chosen:updated");
+/* 	$("#tax_id").chosen();
+	$("#tax_id").trigger("chosen:updated"); */
 	
 	$("#is_featured").chosen();
 	$("#is_featured").trigger("chosen:updated");

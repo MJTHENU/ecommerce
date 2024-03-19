@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 
-@section('title', __('Countries'))
+@section('title', __('Area'))
 
 @section('content')
 <!-- main Section -->
@@ -16,7 +16,7 @@
 					<div class="card-header">
 						<div class="row">
 							<div class="col-lg-6">
-								<span>{{ __('Countries') }}</span>
+								<span>{{ __('Area') }}</span>
 							</div>
 							<div class="col-lg-6">
 								<div class="float-right">
@@ -60,7 +60,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="country_name">{{ __('Country') }}<span class="red">*</span></label>
+										<label for="country_name">{{ __('Area') }}<span class="red">*</span></label>
 										<input type="text" name="country_name" id="country_name" class="form-control parsley-validated" data-required="true">
 									</div>
 								</div>

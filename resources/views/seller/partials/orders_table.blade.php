@@ -3,15 +3,17 @@
 		<thead>
 			<tr>
 				<th class="text-left" style="width:8%">{{ __('Order#') }}</th>
-				<th class="text-left" style="width:8%">{{ __('Order Date') }}</th>
-				<th class="text-left" style="width:14%">{{ __('Customer') }} </th>
-				<th class="text-center" style="width:10%">{{ __('Subtotal') }}</th>
+				<th class="text-left" style="width:8%">{{ __('Order Date & time') }}</th>
+					<th class="text-left" style="width:8%">{{ __('Product') }}</th>
+				<th class="text-left" style="width:5%">{{ __('Customer') }} </th>
+				<th class="text-left" style="width:5%">{{ __('Phone Number') }} </th>
+				<th class="text-center" style="width:5%">{{ __('Subtotal') }}</th>
 				<th class="text-center" style="width:5%">{{ __('Tax') }}</th>
-				<th class="text-center" style="width:10%">{{ __('Shipping Fee') }}</th>
-				<th class="text-center" style="width:10%">{{ __('Total Amount') }}</th>
-				<th class="text-center" style="width:10%">{{ __('Payment Method') }}</th>
-				<th class="text-center" style="width:10%">{{ __('Payment Status') }}</th>
-				<th class="text-center" style="width:10%">{{ __('Order Status') }}</th>
+				<th class="text-center" style="width:8%">{{ __('Shipping Fee') }}</th>
+				<th class="text-center" style="width:8%">{{ __('Total Amount') }}</th>
+				<th class="text-center" style="width:8%">{{ __('Payment Method') }}</th>
+				<th class="text-center" style="width:8%">{{ __('Payment Status') }}</th>
+				<th class="text-center" style="width:8%">{{ __('Order Status') }}</th>
 				<th class="text-center" style="width:5%">{{ __('Action') }}</th>
 			</tr>
 		</thead>
@@ -29,10 +31,11 @@
 			@endphp
 			<tr>
 				<td class="text-left"><a href="{{ route('seller.order', [$row->id]) }}">{{ $row->order_no }}</a></td>
-				<td class="text-left">{{ date('d-m-Y', strtotime($row->created_at)) }}</td>
-
+				<td class="text-left">{{ date('d-m-Y h:i:s A', strtotime($row->created_at)) }}</td>
+                <td class="text-left">{{ $row->title }}</td>
 				@if ($row->customer_id != '')
 				<td class="text-left">{{ $row->name }}</td>
+				<td class="text-left">{{ $row->phone }}</td>
 				@else
 				<td class="text-left">{{ __('Guest User') }}</td>
 				@endif

@@ -55,8 +55,9 @@
 				<div class="col-lg-12">
 					<div class="featured-card">
 						<div class="featured-image">
-							<a href="{{ route('frontend.product-category', [$row->id, $row->slug]) }}">
+						<a href="{{ route('frontend.product-category', [$row->id, $row->slug]) }}">
 								<img src="{{ asset('public/media/'.$row->thumbnail) }}" alt="{{ $row->name }}" />
+									
 							</a>
 						</div>
 						<div class="featured-title">
@@ -64,6 +65,7 @@
 						</div>
 					</div>
 				</div>
+				
 				@endforeach
 			</div>
 		</div>

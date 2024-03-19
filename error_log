@@ -84,3 +84,4 @@
 [17-Oct-2023 16:15:08 UTC] PHP Warning:  require_once(resources/lang/custom/locales.php): failed to open stream: No such file or directory in /home/kitecareer/public_html/ecommerce/config/app.php on line 3
 [17-Oct-2023 16:15:08 UTC] PHP Fatal error:  require_once(): Failed opening required 'resources/lang/custom/locales.php' (include_path='.:/opt/alt/php73/usr/share/pear') in /home/kitecareer/public_html/ecommerce/config/app.php on line 3
 [17-Oct-2023 16:15:08 UTC] PHP Fatal error:  require_once(): Failed opening required 'resources/lang/custom/locales.php' (include_path='.:/opt/alt/php73/usr/share/pear') in /home/kitecareer/public_html/ecommerce/config/app.php on line 3
+[14-Dec-2023 13:31:09 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) in /home/kitecareer/public_html/ecommerce/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 138

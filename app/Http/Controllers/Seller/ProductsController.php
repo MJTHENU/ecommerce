@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use App\Models\Pro_category;
+use App\Models\Subcategory;
 use App\Models\Brand;
 use App\Models\Tax;
 use App\Models\Attribute;
@@ -26,6 +27,7 @@ class ProductsController extends Controller
 		$languageslist = DB::table('languages')->where('status', 1)->orderBy('language_name', 'asc')->get();
 		$brandlist = Brand::where('is_publish', 1)->orderBy('name','asc')->get();
 		$categorylist = Pro_category::where('is_publish', 1)->orderBy('name','asc')->get();
+		$subcategorylist = Subcategory::where('is_publish', 1)->orderBy('name','asc')->get();
 
 		$datalist = DB::table('products')
 			->join('tp_status', 'products.is_publish', '=', 'tp_status.id')
@@ -37,7 +39,7 @@ class ProductsController extends Controller
 			->orderBy('products.id','desc')
 			->paginate(20);
 
-        return view('seller.products', compact('languageslist', 'categorylist', 'brandlist', 'datalist'));		
+        return view('seller.products', compact('languageslist', 'categorylist', 'subcategorylist','brandlist', 'datalist'));		
 	}
 	
 	//Get data for Products Pagination
@@ -117,6 +119,7 @@ class ProductsController extends Controller
 		$slug = esc(str_slug($request->input('slug')));
 		$lan = $request->input('lan');
 		$cat_id = $request->input('categoryid');
+		$subcat_id = $request->input('subcat_id');
 		$brand_id = $request->input('brandid');
 		$user_id = $request->input('user_id');
 		
@@ -125,6 +128,7 @@ class ProductsController extends Controller
 			'slug' => $slug,
 			'language' => $request->input('lan'),
 			'category' => $request->input('categoryid'),
+			'sub_category' => $request->input('subcat_id'),
 			'brand' => $request->input('brandid')
 		);
 		
@@ -134,6 +138,7 @@ class ProductsController extends Controller
 			'slug' => 'required|max:191|unique:products,slug' . $rId,
 			'language' => 'required',
 			'category' => 'required',
+			'sub_category' => 'required',
 			'brand' => 'required'
 		]);
 
@@ -162,6 +167,12 @@ class ProductsController extends Controller
 			$res['msg'] = $errors->first('category');
 			return response()->json($res);
 		}
+
+		if($errors->has('sub_category')){
+			$res['msgType'] = 'error';
+			$res['msg'] = $errors->first('sub_category');
+			return response()->json($res);
+		}
 		
 		if($errors->has('brand')){
 			$res['msgType'] = 'error';
@@ -180,6 +191,7 @@ class ProductsController extends Controller
 			'title' => $title,
 			'slug' => $slug,
 			'cat_id' => $cat_id,
+			'subcat_id' => $subcat_id,
 			'category_ids' => $cat_id,
 			'brand_id' => $brand_id,
 			'lan' => $lan,
@@ -314,11 +326,12 @@ class ProductsController extends Controller
 		
 		$brandlist = Brand::where('lan', '=', $lan)->where('is_publish', '=', 1)->orderBy('name','asc')->get();
 		$categorylist = Pro_category::where('lan', '=', $lan)->where('is_publish', '=', 1)->orderBy('name','asc')->get();
+		$subcategorylist = Subcategory::where('lan', '=', $lan)->where('is_publish', '=', 1)->orderBy('name','asc')->get();
 		
 		$unitlist = Attribute::orderBy('name','asc')->get();
 		$taxlist = Tax::orderBy('title','asc')->get();
 
-        return view('seller.product', compact('datalist', 'statuslist', 'languageslist', 'brandlist', 'categorylist', 'unitlist', 'taxlist'));
+        return view('seller.product', compact('datalist', 'statuslist', 'languageslist', 'brandlist', 'categorylist', 'subcategorylist','unitlist', 'taxlist'));
     }
 	
 	//Update data for Products
@@ -338,6 +351,7 @@ class ProductsController extends Controller
 		$f_thumbnail = $request->input('f_thumbnail');
 		$category_ids = $request->input('cat_id');
 		$cat_id = $request->input('cat_id');
+		$subcat_id = $request->input('subcat_id');
 		
 		$variation_size = $request->input('variation_size');
 		$sale_price = $request->input('sale_price');
@@ -347,6 +361,7 @@ class ProductsController extends Controller
 			'slug' => $slug,
 			'featured_image' => $request->input('f_thumbnail'),
 			'category' => $request->input('cat_id'),
+			'sub_category' => $request->input('subcat_id'),
 			'language' => $request->input('lan'),
 			'variation_size' => $request->input('variation_size'),
 			'sale_price' => $request->input('sale_price')
@@ -359,6 +374,7 @@ class ProductsController extends Controller
 			'featured_image' => 'required',
 			'language' => 'required',
 			'category' => 'required',
+			'sub_category' => 'required',
 			'variation_size' => 'required',
 			'sale_price' => 'required'
 		]);
@@ -388,6 +404,12 @@ class ProductsController extends Controller
 			$res['msg'] = $errors->first('category');
 			return response()->json($res);
 		}
+
+		if($errors->has('sub_category')){
+			$res['msgType'] = 'error';
+			$res['msg'] = $errors->first('sub_category');
+			return response()->json($res);
+		}
 		
 		if($errors->has('featured_image')){
 			$res['msgType'] = 'error';
@@ -415,6 +437,7 @@ class ProductsController extends Controller
 			'description' => $description,
 			'category_ids' => $category_ids,
 			'cat_id' => $cat_id,
+			'subcat_id' => $subcat_id,
 			'brand_id' => $brand_id,
 			'tax_id' => $tax_id,
 			'collection_id' => $collection_id,

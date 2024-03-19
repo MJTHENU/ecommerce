@@ -378,6 +378,12 @@ a.scroll-to-top:hover {
 	color: var(--color-white);
 	background-color: var(--theme-color);
 }
+.btn.theme-btn {
+	color: var(--color-white);
+	background-color: var(--theme-color);
+}
+
+}
 .btn.theme-btn::before {
 	position: absolute;
 	top: 0;
@@ -671,7 +677,9 @@ ul.top-list-1 li i {
 	font-size: 12px;
 	text-align: center;
 }
-.header-mobile-card {}
+.header-mobile-card {
+	
+}
 .header-mobile-card .bars-search-card {
 	width: 120px;
 	float: left;
@@ -695,6 +703,8 @@ ul.top-list-1 li i {
 .header .header-mobile-card .head-round-card ul.head-round-icon li:not(:last-of-type) {
 	margin-right: 5px;
 }
+
+
 
 /* ======================
    Header Cart
@@ -1780,21 +1790,21 @@ ul.categories-wrap li ul.nav-category-list li.cat-list-hideshow.open {
 .item-card {
 	background: var(--color-white);
 	padding: 15px 15px 10px 15px;
-	border: 1px solid var(--color-light-green);
-	border-radius: 5px;
+	border: 3px solid #174aa6;
+	border-radius: 15px;
 	margin-bottom: 25px;
 	-webkit-transition: all 0.3s ease-out 0s;
 	-moz-transition: all 0.3s ease-out 0s;
 	transition: all 0.3s ease-out 0s;	
 }
 .owl-carousel .item-card {
-	margin-right: 15px;
+	/*margin-right: 15px;*/
 }
 .item-card:hover {
 	border: 1px solid var(--theme-color);
 }
 .item-card .item-image {
-	width: 100%;
+
 	position: relative;
 	margin-bottom: 15px;
 	overflow: hidden;
@@ -1803,8 +1813,9 @@ ul.categories-wrap li ul.nav-category-list li.cat-list-hideshow.open {
 	transition: all 0.5s ease-in-out 0s;
 }
 .item-card .item-image img {
-	width: 100%;
-	height: 100%;
+	width: 250px;
+    height: 160px;
+    object-fit: cover;
 }
 .item-card:hover .item-image img {
 	-moz-transform: scale(1.1);
@@ -1981,6 +1992,176 @@ ul.nav-pills.tp-tabs .show > .nav-link {
 	background: var(--theme-color);
 	color: var(--color-white);
 }
+
+
+
+@media only screen and (max-width: 350px) {
+    .item-card {
+        margin: 10px;
+    }
+
+    .owl-carousel .item-card {
+     
+		margin-top: 0;
+		margin-bottom: 60px;
+		margin-right:20px ;
+		margin-left: 13px;
+		padding: 3px;
+    }
+
+    .whatsapp-right, a.scroll-to-top {
+        margin-right: 20px;
+    }
+
+    .item-card .item-image {
+        margin-right: 0;
+    }
+}
+
+
+@media only screen and (min-width: 351px) and (max-width: 400px) {
+    .item-card {
+        margin-right: 50px;
+        margin-left: 50px;
+        padding: 3px;
+    }
+
+    .owl-carousel .item-card {
+        margin-right: 45px;
+        margin-left: 40px;
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+
+}
+@media only screen and (min-width: 401px) and (max-width: 450px) {
+    .item-card {
+        margin-right: 65px;
+        margin-left: 100px;
+        padding: 3px;
+    }
+
+    .owl-carousel .item-card {
+        margin-right: 80px;
+        margin-left: 86px;
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+
+}
+@media only screen and (min-width: 450px) and (max-width: 500px) {
+    .item-card {
+        margin-right: 120px;
+        margin-left: 100px;
+        padding: 3px;
+    }
+
+	.owl-carousel .item-card {
+        margin-right: 175px;
+        margin-left: 40px;
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 550px) {
+    .item-card {
+        margin-right: 127px;
+        margin-left: 140px;
+        padding: 3px;
+    }
+
+	.owl-carousel .item-card {
+        margin-right: 105px;
+        margin-left: 150px;
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+}
+
+
+@media only screen and (min-width: 551px) and (max-width: 600px) {
+    .item-card {
+        margin-right: 130px;
+        margin-left: 140px;
+        padding: 3px;
+    }
+
+    .owl-carousel .item-card {
+        margin-right: 105px;
+        margin-left: 182px;
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+}
+
+
+@media only screen and (min-width: 601px) and (max-width: 650px) {
+    .item-card {
+        margin-right: 130px;
+        margin-left: 140px;
+        padding: 3px;
+    }
+
+	.owl-carousel .item-card {
+        margin-right: 105px;
+        margin-left: 150px;
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+}
+
+
+@media only screen and (min-width: 651px) and (max-width: 800px) {
+    .item-card {
+        margin-right: 20px;
+        margin-left: 92px;
+        padding: 3px;
+    }
+
+	.owl-carousel .item-card {
+        margin-right: 25px;
+        margin-left: 90px;
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+}
+
+@media only screen and  (min-width: 801px) and (max-width: 900px) {
+    .item-card {
+        margin-right: 25px;
+        margin-left: 90px;
+        padding: 3px;
+    }
+
+	.owl-carousel .item-card {
+        margin-right: 25px;
+        margin-left: 90px;
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+}
+
+
+
+@media only screen and  (min-width: 901px) and (max-width: 1200px) {
+    .item-card {
+        margin-right: 45px;
+        margin-left: 35px;
+        padding: 3px;
+    }
+
+	.owl-carousel .item-card {
+        
+        
+		margin-bottom: 60px;
+		padding: 2px;
+    }
+}
+
+
+   
+
 
 /* ======================
    Rating css
@@ -2861,7 +3042,7 @@ ul.widget-size li.unit.active {
 .slider-range .ui-widget-header {
 	border: 1px solid var(--color-light-green);
 	background: var(--color-light-green);
-}
+	}
 .slider-range .ui-state-default, 
 .slider-range .ui-widget-content .ui-state-default, 
 .slider-range .ui-widget-header .ui-state-default {
@@ -2883,7 +3064,26 @@ ul.widget-size li.unit.active {
 .slider-range .filter-btn {
 	padding: 10px 20px;
 }
+.ui-slider-handle {
+    touch-action: auto; /* or touch-action: manipulation; */
+}
 
+
+@media only screen and (max-width: 767px) {
+    .slider-range .ui-slider {
+        touch-action: pan-x;
+    }
+
+    .slider-range .ui-slider-handle {
+        
+		touch-action: auto;
+        transition: left 0.3s ease;
+    }
+	.ui-slider .ui-slider-handle {
+        touch-action: auto; /* or touch-action: manipulation; */
+        transition: left 0.3s ease; /* Smooth transition for left property */
+    }
+}
 /* ======================
    Auth Section
    ====================== */
@@ -2935,7 +3135,7 @@ ul.errors-list li {
 
 /* ======================
    Checkbox and Radio css
-   ====================== */
+   ====================== 
 .checkbox_group {
 	margin-bottom: 15px;
 	width: 100%;
@@ -3082,7 +3282,192 @@ ul.errors-list li {
 }
 .checkboxlist input[type="radio"]:checked {
 	border: 1px solid var(--theme-color);
+}*/
+
+/*=====================
+  check box new css 
+  =====================
+  */
+  
+  .checkbox_group {
+	margin-bottom: 15px;
+	width: 100%;
 }
+.tw_checkbox span:before, 
+.tw_checkbox span:after {
+	content: "";
+	display: inline-block;
+	background: #fff;
+	width: 0;
+	height: 0.2rem;
+	position: absolute;
+	transform-origin: 0% 0%;
+}
+.tw_checkbox {
+	position: relative;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+}
+.tw_checkbox input {
+	display: none;
+}
+.tw_checkbox input:checked ~ span:before {
+	width: 1rem;
+	height: 0.15rem;
+	transition: width 0.1s;
+	transition-delay: 0.3s;
+}
+.tw_checkbox input:checked ~ span:after {
+	width: 0.4rem;
+	height: 0.15rem;
+	transition: width 0.1s;
+	transition-delay: 0.2s;
+}
+.tw_checkbox input:disabled ~ span {
+	background: #ececec;
+	border-color: #dcdcdc;
+}
+.tw_checkbox input:disabled ~ label {
+	color: #dcdcdc;
+}
+.tw_checkbox input:disabled ~ label:hover {
+	cursor: default;
+}
+.tw_checkbox label {
+	padding-left: 2rem;
+	position: relative;
+	z-index: 2;
+	cursor: pointer;
+	margin-bottom: 0;
+	font-weight: 400;
+}
+.tw_checkbox span {
+	display: inline-block;
+	width: 1.2rem;
+	height: 1.2rem;
+	border: 2px solid #ccc;
+	position: absolute;
+	left: 0;
+	transition: all 0.2s;
+	z-index: 1;
+	box-sizing: content-box;
+}
+.tw_checkbox span:before {
+	transform: rotate(-55deg);
+	top: 1rem;
+	left: 0.37rem;
+}
+.tw_checkbox span:after {
+	transform: rotate(35deg);
+	bottom: 0.35rem;
+	left: 0.2rem;
+}
+.tw_checkbox input:checked ~ span {
+	background: var(--theme-color);
+	border-color: var(--theme-color);
+	color: #ffffff;
+}
+
+.checkboxlist label.checkbox-title {
+    font-weight: 400;
+}
+
+.checkboxlist input[type="checkbox"],
+.checkboxlist input[type="radio"] {
+    border: 1px solid #222;
+    border-radius: 4px;
+    background: #fff;
+    color: #222;
+    clear: none;
+    cursor: pointer;
+    display: inline-block;
+    
+    height: 16px;
+    width: 16px;
+    min-width: 16px;
+    margin: -3px 5px 0px 0px;
+    outline: 0;
+    padding: 0 !important;
+    text-align: center;
+    vertical-align: middle;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: 0.05s border-color ease-in-out;
+    font-size: 14px;
+}
+
+.checkboxlist input[type="radio"] {
+    border-radius: 50%;
+    margin-right: 5px;
+	
+	line-height: 0.71428571;
+}
+
+.checkboxlist input[type="checkbox"]:checked,
+.checkboxlist input[type="radio"]:checked {
+    background: var(--theme-color);
+    border: 1px solid var(--theme-color);
+}
+
+.checkboxlist input[type="checkbox"]:checked::before {
+	font-family: "bootstrap-icons";
+    content: "\f272";
+    margin: 8px 10px 0 -1px !important; /* Adjust the top margin value */
+    font-size: 15px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.checkboxlist input[type="radio"]:checked::before {
+    content: "";
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    margin: 3px;
+    background-color: var(--theme-color);
+    line-height: 1.14285714;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 412px) {
+    .checkboxlist input[type="checkbox"],
+    .checkboxlist input[type="radio"] {
+        height: 20px;
+        width: 20px;
+        font-size: 14px; /* Reset font-size for mobile */
+    }
+
+    .checkboxlist input[type="radio"] {
+        margin-right: 3px;
+		
+    }
+
+    .checkboxlist input[type="checkbox"]:not(:checked)::before {
+        content: ""; /* Empty content for unchecked state */
+    }
+
+	
+
+    .checkboxlist input[type="checkbox"]:checked::before {
+		font-size: 15px;
+		margin: 20px 0 0 -2px !important;
+		content: "\f272" !important;
+		color: #fff;
+		font-weight: bold;
+    }
+
+    .checkboxlist input[type="radio"]:checked::before {
+        width: 12px;
+        height: 12px;
+        margin: 2px;
+    }
+}
+
+
+
 
 /* ======================
    My Dashbord css

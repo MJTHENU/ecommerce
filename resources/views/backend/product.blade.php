@@ -106,17 +106,29 @@
 									</div>
 								</div>
 
+								<!--<div class="row">
+								<div class="col-lg-12">
+										<div class="form-group">
+											<label for="cat_id">{{ __('Sub Category') }}<span class="red">*</span></label>
+											<select name="subcat_id" id="subcat_id" class="chosen-select form-control">
+											<option value="">{{ __('Select Sub Category') }}</option>
+											@foreach($subcategorylist as $row)
+												<option {{ $row->id == $datalist['subcat_id'] ? "selected=selected" : '' }} value="{{ $row->id }}">
+													{{ $row->name }}
+												</option>
+											@endforeach
+											</select>
+										</div>
+									</div>
+								</div>-->
+								<input type="hidden" value="0" name="subcat_id" id="subcat_id">
+
 								<div class="row">	
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label for="tax_id">{{ __('Tax') }}<span class="red">*</span></label>
-											<select name="tax_id" id="tax_id" class="chosen-select form-control">
-											@foreach($taxlist as $row)
-												<option {{ $row->id == $datalist['tax_id'] ? "selected=selected" : '' }} value="{{ $row->id }}">
-													{{ $row->title }}
-												</option>
-											@endforeach
-											</select>
+											<!-- <input typ="text" name="tax_id" id="tax_id" class="form-control parsley-validated" data-required="true"  /> -->
+											<input value="{{ $datalist['tax_id'] }}" name="tax_id" id="tax_id" type="text" class="form-control parsley-validated" data-required="true">
 										</div>
 									</div>
 									<div class="col-lg-6">
